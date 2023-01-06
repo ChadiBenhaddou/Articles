@@ -23,9 +23,23 @@ Route::get('/',function(){
 
 Route::resource('articles', ArticalsController::class);
 
-Route::get('/articles/{id}', [ArticalsController::class, 'show']);
 
-Route::get('/filter', [WriterController::class, 'filter']);
+
+Route::name('writer.')->group(function () {
+    
+        Route::post('/filter', [WriterController::class, 'filter'])->name('filter');
+    
+        Route::get('/create', [WriterController::class, 'create'])->name('create');
+
+        Route::post('/', [WriterController::class, 'store'])->name('store');
+    
+});
+
+
+
+
+
+
 
 
 

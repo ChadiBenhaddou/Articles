@@ -17,11 +17,20 @@
     <div class="container">
         <div class="row mt-3  mb-4">
             <div class="col-lg-4 d-flex justify-content-start  mt-4">
-                <form action="/filter" method="get">
-                    <h5 class="font-weight-bold">Writers :</h5>
-                    <input type="text" style="width: 200px; height:50px; margin-right:5px;" class="form-select-lg mt-3 d-inline" name="name" placeholder="Writer name" class="mb-2">
-                    <button class="btn btn-primary d-inline " style="margin-bottom: 5px" type="submit" >Go</button>
-                </form>
+                <div>
+                    <form action="{{route('writer.filter')}}" method="POST">
+                        @csrf
+                        <h5 class="font-weight-bold">Writers :</h5>
+                        <select name="name" id="" style="width: 200px; height:50px; margin-right:5px;" class="form-select form-select-lg mt-3 d-inline">
+                            <option selected value="All">All</option>
+                            @foreach($writers as $writer)
+                            <option value="{{$writer->name}}">{{$writer->name}}</option>
+                            @endforeach
+                        </select>
+                        <button class="btn btn-primary d-inline " style="margin-bottom: 5px" type="submit" >Go</button>
+                    </form>
+                    <form action="{{route('writer.create')}}" method="get"><button class="btn btn-primary d-inline " style="margin-bottom: 5px" type="submit" >Add Writer</button></form>
+                </div>
             </div>
             <div class="col-lg-4 d-flex justify-content-center mt-4 font-weight-bold"><h2>All Articles</h2></div>
             <div class="col-lg-4 d-flex justify-content-end"><a href="{{route('articles.create')}}"><img style="transition: transform 1s;" src="icons/ajouter.png" alt=""></a></div>
@@ -39,7 +48,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between align-items-end">
-                    <form action='/articles/{{$article->articleId}}' method="GET">
+                    <form action='{{route('articles.show', $article->articleId)}}' method="GET">
                         <button class="btn btn-primary ">Read more</button>
                     </form>
 

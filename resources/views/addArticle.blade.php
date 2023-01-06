@@ -15,7 +15,11 @@
                 <form action="{{route('articles.store')}}" method="post">
                     @csrf
                     <input type="hidden" name="action" value="add">
-                    <input type="text" name="name" placeholder="Writer name" class="mb-2">
+                    <select name="name" id="" style="width: 200px; height:50px; margin-right:5px;" class="form-select form-select-lg mt-3 mb-2 d-inline">
+                        @foreach($writers as $writer)
+                        <option value="{{$writer->name}}">{{$writer->name}}</option>
+                        @endforeach
+                    </select>
                     <input type="text" name="title" placeholder="Title" class="mb-2" >
                     <textarea name="body" id="" cols="30" rows="5" placeholder="Body" class="mb-2"></textarea>
                     <button type="submit" class="btn btn-primary">Add article</button>

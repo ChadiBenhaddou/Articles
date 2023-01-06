@@ -12,16 +12,25 @@ class ArticalsController extends Controller
     public function index()
     {
         $url = __DIR__.'/articles.json';
+        $url2 = __DIR__.'/writers.json';
+
+        $ws= file_get_contents($url2);
+        $listw = json_decode($ws);
      
         $articles= file_get_contents($url);
         $listArticles = json_decode($articles);
 
-        return view('allArticles',["listArticles" => $listArticles]);
+        return view('allArticles',["listArticles" => $listArticles , "writers" => $listw]);
     }
 
     public function create()
     {
-        return view('addArticle');
+        $url2 = __DIR__.'/writers.json';
+        
+        $ws= file_get_contents($url2);
+        $listw = json_decode($ws);
+
+        return view('addArticle',["writers" => $listw]);
     }
 
     public function store(Request $request)
