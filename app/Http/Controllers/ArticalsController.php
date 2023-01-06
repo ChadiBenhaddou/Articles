@@ -115,12 +115,15 @@ class ArticalsController extends Controller
         $articles= file_get_contents($url);
         $listArticles = json_decode($articles);
 
+        $Articles = array();
+
         foreach($listArticles as $key) {
-            if ($key->articleId == $id) {
-                unset($listArticles[array_search($key, $listArticles)]);
+            if ($key->articleId != $id) {
+                array_push($Articles,$key);
             }
         }
-        file_put_contents($url, json_encode($listArticles));
+
+        file_put_contents($url, json_encode($Articles));
 
         return redirect(route('articles.index'));
     }
